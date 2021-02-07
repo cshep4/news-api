@@ -1,0 +1,9 @@
+/bin/*
+/obj/*
+.vs/*.*
+/vendor/**
+.idea/
+
+internal/mock
+
+*gen.go

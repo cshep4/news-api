@@ -1,0 +1,130 @@
+swagger: "2.0"
+info:
+  description: "News feed service written to retrieve news articles from various providers for specified categories."
+  version: "1.0.0"
+  title: "News API"
+schemes:
+- "https"
+- "http"
+paths:
+  /:
+    get:
+      summary: "Get feeds"
+      description: "Get feeds for all supported categories"
+      operationId: "getFeeds"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "provider"
+        in: "query"
+        description: "News provider to retrieve feed from"
+        required: false
+        type: "string"
+      - name: "limit"
+        in: "query"
+        description: "Max number of articles to return"
+        required: false
+        type: "integer"
+      - name: "offset"
+        in: "query"
+        description: "Max number of articles to return"
+        required: false
+        type: "integer"
+      responses:
+        "200":
+          description: "Successful response"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Feed"
+        "400":
+          description: "Invalid input"
+        "500":
+          description: "Internal server error"
+        "404":
+          description: "Category or Provider not found"
+  /{category}:
+    get:
+      summary: "Get feed for category"
+      description: "Get feed for specified category"
+      operationId: "getFeedForCategory"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "category"
+        in: "path"
+        description: "News category"
+        required: true
+        type: "string"
+      - name: "provider"
+        in: "query"
+        description: "News provider to retrieve feed from"
+        required: false
+        type: "string"
+      - name: "limit"
+        in: "query"
+        description: "Max number of articles to return"
+        required: false
+        type: "integer"
+      - name: "offset"
+        in: "query"
+        description: "Max number of articles to return"
+        required: false
+        type: "integer"
+      responses:
+        "200":
+          description: "Successful response"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Feed"
+        "400":
+          description: "Invalid input"
+        "500":
+          description: "Internal server error"
+        "404":
+          description: "Category or Provider not found"
+definitions:
+  Feed:
+    type: "object"
+    required:
+    - "name"
+    - "photoUrls"
+    properties:
+      category:
+        type: "string"
+      provider:
+        type: "string"
+      limit:
+        type: "integer"
+      offset:
+        type: "integer"
+      items:
+        type: "array"
+        items:
+          $ref: "#/definitions/Item"
+  Item:
+    type: "object"
+    required:
+    - "name"
+    - "photoUrls"
+    properties:
+      category:
+        type: "string"
+      provider:
+        type: "string"
+      title:
+        type: "string"
+      link:
+        type: "string"
+      description:
+        type: "string"
+      thumbnail:
+        type: "string"
+      dateTime:
+        type: "string"
+        format: "date-time"
