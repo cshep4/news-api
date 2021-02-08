@@ -5,5 +5,3 @@
 .idea/
 
 internal/mock
-
-*gen.go
