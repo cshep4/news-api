@@ -4,6 +4,11 @@ News feed service written in Go which can retrieve news articles from various pr
 
 The REST API for the news retriever is described below.
 
+## Env Variables
+
+    BBC_URL=http://feeds.bbci.co.uk/news
+	SKY_URL=http://feeds.skynews.com/feeds
+
 ## Get Feed
 
 ### Request
